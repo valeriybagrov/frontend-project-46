@@ -10,3 +10,10 @@ jobs:
       - run: make install
       - run: make lint
       - run: npm test
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          FRONTEND_46: ${{ secrets.FRONTEND_46 }}
+        # with:
+        #   coverageCommand: make test-coverage
+        #   debug: true

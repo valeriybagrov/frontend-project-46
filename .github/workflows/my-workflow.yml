@@ -2,6 +2,8 @@ name: my-workflow
 on:
   push
 
+workflow_dispatch: on
+
 jobs:
   build:
     runs-on: ubuntu-latest

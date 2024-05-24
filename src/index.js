@@ -1,8 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import _ from 'lodash';
-
-const parse = (file) => JSON.parse(file);
+import parse from './parsers.js';
 
 const getKeyValStr = (key, value, sign) => `  ${sign} ${key}: ${value}`;
 
@@ -11,8 +10,8 @@ const gendiff = (path1, path2) => {
   const file1 = readFileSync(resolve(path1));
   const file2 = readFileSync(resolve(path2));
 
-  const data1 = parse(file1);
-  const data2 = parse(file2);
+  const data1 = parse(file1, path1);
+  const data2 = parse(file2, path2);
 
   // get sorted keys arrs to carring out
   const keys1 = _.sortBy(Object.keys(data1));

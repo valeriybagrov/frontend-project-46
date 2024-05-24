@@ -4,5 +4,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/873efc8c4d7a3d271693/maintainability)](https://codeclimate.com/github/valeriybagrov/frontend-project-46/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/873efc8c4d7a3d271693/test_coverage)](https://codeclimate.com/github/valeriybagrov/frontend-project-46/test_coverage)
 
-### Demonstration 
+### Demonstration
+#### With JSON files
 [![asciicast](https://asciinema.org/a/EHwFarAKfe1vcfs5YQsk9jhPp.svg)](https://asciinema.org/a/EHwFarAKfe1vcfs5YQsk9jhPp)
+#### With YAML files
+[![asciicast](https://asciinema.org/a/9M0XfBNlXI0VdHlHZxWumybQM.svg)](https://asciinema.org/a/9M0XfBNlXI0VdHlHZxWumybQM)

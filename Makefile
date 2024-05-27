@@ -5,7 +5,7 @@ publish:
 	npm publish --dry-run
 
 run:
-	node bin/gendiff.js __fixtures__/file1.json __fixtures__/file2.json
+	node bin/gendiff.js __fixtures__/file3.json __fixtures__/file4.json
 
 lint:
 	npx eslint .

@@ -11,6 +11,9 @@ export default [
     },
     rules: {
       'semi': ['error', 'always'],
+      'no-multi-spaces': ['error'],
+      'camelcase': ['error',],
+      'no-irregular-whitespace': ['error',],
     }
   },
   pluginJs.configs.recommended,

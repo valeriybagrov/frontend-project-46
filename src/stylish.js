@@ -39,4 +39,4 @@ ${' '.repeat(spaces)}+ ${key}: ${stringtify(newValue, spaces + 6)}`;
   return `${' '.repeat(spaces)}${sign} ${key}: ${stringtify(value, spaces + 6)}`;
 };
 
-export { calculateSpacesCount, assembleStrOfOBj, formater};
+export { stringtify, calculateSpacesCount, assembleStrOfOBj, formater};

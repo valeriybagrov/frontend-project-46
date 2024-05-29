@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import _ from 'lodash';
 import parse from './parsers.js';
-import { assembleStrOfOBj, formater } from './stylish.js';
+import { calculateSpacesCount, assembleStrOfOBj, formater } from './stylish.js';
 
 const getDataFromFiles = (path1, path2) => {
   const file1 = readFileSync(resolve(path1));
@@ -17,7 +17,7 @@ const gendiff = (path1, path2) => {
   const [data1, data2] = getDataFromFiles(path1, path2);
 
   const iter = (node1, node2, depth) => {
-    const spaceCount = 4 * depth - 2;
+    const spaceCount = calculateSpacesCount(depth, 4, 2);
 
     const keys1 = _.sortBy(Object.keys(node1));
     const keys2 = _.sortBy(Object.keys(node2));

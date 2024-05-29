@@ -16,6 +16,8 @@ const stringtify = (value, countSpaces) => {
     } else return value;
 };
 
+const calculateSpacesCount = (depth, number, leftShift) => number * depth - leftShift;
+
 const assembleStrOfOBj = (array, spaceCount) => ['{',
  ...array,
   `${' '.repeat(spaceCount - 2)}}`].join('\n');
@@ -37,4 +39,4 @@ ${' '.repeat(spaces)}+ ${key}: ${stringtify(newValue, spaces + 6)}`;
   return `${' '.repeat(spaces)}${sign} ${key}: ${stringtify(value, spaces + 6)}`;
 };
 
-export { stringtify, assembleStrOfOBj, formater};
+export { calculateSpacesCount, assembleStrOfOBj, formater};

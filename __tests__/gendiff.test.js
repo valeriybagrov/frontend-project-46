@@ -23,16 +23,6 @@ test("stringtify test", () => {
 }`;
   expect(stringtify(obj, 4)).toEqual(objToStr);
 
-  const arr = [1, 2, 3, 4, 5,];
-  const arrToStr = `[
-    1
-    2
-    3
-    4
-    5
-]`;
-  expect(stringtify(arr, 4)).toEqual(arrToStr);
-
   const str = 'Banana';
   expect(stringtify(str, 4)).toEqual(str);
 });

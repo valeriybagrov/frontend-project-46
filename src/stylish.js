@@ -1,34 +1,30 @@
 import _ from "lodash";
 
-const stringtify = (value, countSpaces) => {
-  if (_.isObject(value)) {
-    const isValueArray = _.isArray(value);
-    const [openBracket, closeBracket] = isValueArray ? ['[', ']'] : ['{', '}'];
-    const result = isValueArray ? 
-    value.map((el) => `${' '.repeat(countSpaces)}${el}`) : 
-    Object.entries(value)
-    .map(([k, v]) => `${' '.repeat(countSpaces)}${k}: ${stringtify(v, countSpaces + 4)}`);
-
-    return [openBracket,
-      ...result,
-      `${' '.repeat(countSpaces - 4)}${closeBracket}`
-    ].join('\n');
-    } else return value;
-};
-
 const calculateSpacesCount = (depth, number, leftShift) => number * depth - leftShift;
 
-const assembleStrOfOBj = (array, spaceCount) => ['{',
+const assembleStrOfOBj = (array, bracketSpace) => ['{',
  ...array,
-  `${' '.repeat(spaceCount - 2)}}`].join('\n');
+  `${' '.repeat(bracketSpace)}}`
+].join('\n');
+
+const stringtify = (value, spacesCount) => {
+  const depthSpaces = calculateSpacesCount(1, 4, 0);
+  if (_.isObject(value) && !_.isArray(value)) {
+    const result = Object.entries(value)
+    .map(([k, v]) => `${' '.repeat(spacesCount)}${k}: ${stringtify(v, spacesCount + depthSpaces)}`);
+
+    return assembleStrOfOBj(result, spacesCount - depthSpaces);
+  } else return value;
+};
 
 const formater = (obj) => {
-  const { status, key, value, newValue, spaces } = obj;
+  const { status, key, value, newValue, inlineSpaces } = obj;
+  const nextTab = inlineSpaces + calculateSpacesCount(1, 4, 2) + calculateSpacesCount(1, 4, 0);
   let sign;
 
   if (status === 'updated') {
-  return `${' '.repeat(spaces)}- ${key}: ${stringtify(value, spaces + 6)}
-${' '.repeat(spaces)}+ ${key}: ${stringtify(newValue, spaces + 6)}`;
+  return `${' '.repeat(inlineSpaces)}- ${key}: ${stringtify(value, nextTab)}
+${' '.repeat(inlineSpaces)}+ ${key}: ${stringtify(newValue, nextTab)}`;
   }
 
   else if (status === 'same') sign = ' ';
@@ -36,7 +32,7 @@ ${' '.repeat(spaces)}+ ${key}: ${stringtify(newValue, spaces + 6)}`;
   else if (status === 'added') sign = '+';
 
 
-  return `${' '.repeat(spaces)}${sign} ${key}: ${stringtify(value, spaces + 6)}`;
+  return `${' '.repeat(inlineSpaces)}${sign} ${key}: ${stringtify(value, nextTab)}`;
 };
 
 export { stringtify, calculateSpacesCount, assembleStrOfOBj, formater};

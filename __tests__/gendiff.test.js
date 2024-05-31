@@ -21,10 +21,10 @@ test("stringtify test", () => {
     setting4: null
     setting5: blah blah
 }`;
-  expect(stringtify(obj, 4)).toEqual(objToStr);
+  expect(stringtify(obj, 1)).toEqual(objToStr);
 
   const str = 'Banana';
-  expect(stringtify(str, 4)).toEqual(str);
+  expect(stringtify(str, 1)).toEqual(str);
 });
 
 const result2d = `{

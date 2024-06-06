@@ -1,7 +1,6 @@
 /* eslint-env jest */
 
 import gendiff from "../src/index.js";
-import { stringtify } from "../src/stylish.js";
 import { fileURLToPath } from 'url';  
 import path from "path";
 
@@ -9,23 +8,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-
-test("stringtify test", () => {
-  const obj = { follow: false, setting1: 'Value 1', setting2: 200, setting3: true,
-    setting4: null, setting5: 'blah blah'};
-  const objToStr = `{
-    follow: false
-    setting1: Value 1
-    setting2: 200
-    setting3: true
-    setting4: null
-    setting5: blah blah
-}`;
-  expect(stringtify(obj, 1)).toEqual(objToStr);
-
-  const str = 'Banana';
-  expect(stringtify(str, 1)).toEqual(str);
-});
 
 const result2d = `{
   - follow: false

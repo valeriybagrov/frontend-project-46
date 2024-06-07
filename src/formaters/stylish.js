@@ -37,7 +37,7 @@ export default (tree) => {
         case 'unchanged':
           sign = ' ';
           break;
-        case 'rejected':
+        case 'removed':
           sign = '-';
           break;
         case 'added':

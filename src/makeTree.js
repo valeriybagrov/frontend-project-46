@@ -9,7 +9,7 @@ const checkKeyStatus = (key, keyCollection1, keyCollection2, value1, value2) => 
     else if (value1 === value2) status = 'unchanged';
     else status = 'updated';
 
-  } else if (keyCollection1.includes(key) && !keyCollection2.includes(key)) status = 'rejected';
+  } else if (keyCollection1.includes(key) && !keyCollection2.includes(key)) status = 'removed';
   else status = 'added';
 
   return status;
@@ -30,7 +30,7 @@ const getNodeValues = (status, value1, value2) => {
       value = value1;
       newValue = value2;
       break;
-    case 'rejected':
+    case 'removed':
       value = value1;
       break;
     case 'added':

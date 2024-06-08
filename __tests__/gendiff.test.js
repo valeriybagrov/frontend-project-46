@@ -66,6 +66,7 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
 
+const resultJson = '[{"status":"nested","key":"common","value":[{"status":"added","key":"follow","value":false},{"status":"unchanged","key":"setting1","value":"Value 1"},{"status":"removed","key":"setting2","value":200},{"status":"updated","key":"setting3","value":true,"newValue":null},{"status":"added","key":"setting4","value":"blah blah"},{"status":"added","key":"setting5","value":{"key5":"value5"}},{"status":"nested","key":"setting6","value":[{"status":"nested","key":"doge","value":[{"status":"updated","key":"wow","value":"","newValue":"so much"}]},{"status":"unchanged","key":"key","value":"value"},{"status":"added","key":"ops","value":"vops"}]}]},{"status":"nested","key":"group1","value":[{"status":"updated","key":"baz","value":"bas","newValue":"bars"},{"status":"unchanged","key":"foo","value":"bar"},{"status":"updated","key":"nest","value":{"key":"value"},"newValue":"str"}]},{"status":"removed","key":"group2","value":{"abc":12345,"deep":{"id":45}}},{"status":"added","key":"group3","value":{"deep":{"id":{"number":45}},"fee":100500}}]';
 
 test('gendiff JSON', () => {
   const filepath1 = getFixturePath(`file3.json`);
@@ -74,6 +75,7 @@ test('gendiff JSON', () => {
   expect(gendiff(filepath1, filepath2)).toEqual(resultStylish);
   expect(gendiff(filepath1, filepath2, 'stylish')).toEqual(resultStylish);
   expect(gendiff(filepath1, filepath2, 'plain')).toEqual(resultPlain);
+  expect(gendiff(filepath1, filepath2, 'json')).toEqual(resultJson);
 });
 
 test('gendiff YAML', () => {
@@ -83,4 +85,5 @@ test('gendiff YAML', () => {
   expect(gendiff(filepath1, filepath2)).toEqual(resultStylish);
   expect(gendiff(filepath1, filepath2, 'stylish')).toEqual(resultStylish);
   expect(gendiff(filepath1, filepath2, 'plain')).toEqual(resultPlain);
+  expect(gendiff(filepath1, filepath2, 'json')).toEqual(resultJson);
 });

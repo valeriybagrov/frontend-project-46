@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "The simpliest differences finder",
+  "description": "The CLI tool to find differences between files",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -16,7 +16,9 @@
   },
   "keywords": [
     "diff",
-    "finder differences"
+    "differences finder",
+    "JSON",
+    "YAML"
   ],
   "author": "valeriybagrov",
   "license": "ISC",

@@ -1,15 +1,17 @@
 /* eslint-env jest */
 
-import gendiff from "../src/index.js";
-import { fileURLToPath } from 'url';  
-import path from "path";
+import {
+ fileURLToPath
+} from 'url';
+import path from 'path';
+import gendiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-const resultStylish =`{
+const resultStylish = `{
     common: {
       + follow: false
         setting1: Value 1
@@ -69,8 +71,8 @@ Property 'group3' was added with value: [complex value]`;
 const resultJson = '[{"status":"nested","key":"common","value":[{"status":"added","key":"follow","value":false},{"status":"unchanged","key":"setting1","value":"Value 1"},{"status":"removed","key":"setting2","value":200},{"status":"updated","key":"setting3","value":true,"newValue":null},{"status":"added","key":"setting4","value":"blah blah"},{"status":"added","key":"setting5","value":{"key5":"value5"}},{"status":"nested","key":"setting6","value":[{"status":"nested","key":"doge","value":[{"status":"updated","key":"wow","value":"","newValue":"so much"}]},{"status":"unchanged","key":"key","value":"value"},{"status":"added","key":"ops","value":"vops"}]}]},{"status":"nested","key":"group1","value":[{"status":"updated","key":"baz","value":"bas","newValue":"bars"},{"status":"unchanged","key":"foo","value":"bar"},{"status":"updated","key":"nest","value":{"key":"value"},"newValue":"str"}]},{"status":"removed","key":"group2","value":{"abc":12345,"deep":{"id":45}}},{"status":"added","key":"group3","value":{"deep":{"id":{"number":45}},"fee":100500}}]';
 
 test('gendiff JSON', () => {
-  const filepath1 = getFixturePath(`file3.json`);
-  const filepath2 = getFixturePath(`file4.json`);
+  const filepath1 = getFixturePath('file3.json');
+  const filepath2 = getFixturePath('file4.json');
 
   expect(gendiff(filepath1, filepath2)).toEqual(resultStylish);
   expect(gendiff(filepath1, filepath2, 'stylish')).toEqual(resultStylish);
@@ -79,8 +81,8 @@ test('gendiff JSON', () => {
 });
 
 test('gendiff YAML', () => {
-  const filepath1 = getFixturePath(`file3.yaml`);
-  const filepath2 = getFixturePath(`file4.yml`);
+  const filepath1 = getFixturePath('file3.yaml');
+  const filepath2 = getFixturePath('file4.yml');
 
   expect(gendiff(filepath1, filepath2)).toEqual(resultStylish);
   expect(gendiff(filepath1, filepath2, 'stylish')).toEqual(resultStylish);

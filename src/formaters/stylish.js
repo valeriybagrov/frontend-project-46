@@ -25,7 +25,7 @@ export default (tree) => {
   const iter = (node, depth) => {
     const result = node.map((el) => {
       const {
-        status, key, value, newValue
+        status, key, value, newValue,
       } = el;
       const inlineSpaces = calculateSpacesCount(depth, 4, 2);
       switch (status) {

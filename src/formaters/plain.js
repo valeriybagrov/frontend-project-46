@@ -25,7 +25,7 @@ const createDiscription = (status, path, value, newValue) => {
 const plain = (tree, path) => {
   const result = tree.flatMap((node) => {
     const {
-      status, key, value, newValue
+      status, key, value, newValue,
     } = node;
     const newPath = path ? `${path}.${key}` : key;
 

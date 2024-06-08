@@ -11,26 +11,6 @@ const checkKeyStatus = (key, keyCollection1, keyCollection2, value1, value2) => 
   return 'added';
 };
 
-const getNodeValues = (status, value1, value2) => {
-  switch (status) {
-    case 'nested': return { value: makeTree(value1, value2) };
-
-    case 'unchanged': return { value: value1 };
-
-    case 'removed': return { value: value1 };
-
-    case 'updated': return {
-      value: value1,
-      newValue: value2,
-    };
-
-    case 'added': return { value: value2};
-
-    default:
-      throw new Error('Unexpected node status');
-  }
-};
-
 const makeTree = (node1, node2) => {
   const keys1 = _.sortBy(Object.keys(node1));
   const keys2 = _.sortBy(Object.keys(node2));
@@ -39,14 +19,34 @@ const makeTree = (node1, node2) => {
   const tree = commonKeys.map((key) => {
     const value1 = node1[key];
     const value2 = node2[key];
-    const status = checkKeyStatus(key, keys1, keys2, value1, value2);
 
+    const getNodeValues = (status, value1, value2) => {
+      switch (status) {
+        case 'nested': return { value: makeTree(value1, value2) };
+
+        case 'unchanged': return { value: value1 };
+
+        case 'removed': return { value: value1 };
+
+        case 'updated': return {
+          value: value1,
+          newValue: value2,
+        };
+
+        case 'added': return { value: value2 };
+
+        default:
+          throw new Error('Unexpected node status');
+      }
+    };
+
+    const status = checkKeyStatus(key, keys1, keys2, value1, value2);
     const {
-      value, newValue
+      value, newValue,
     } = getNodeValues(status, value1, value2);
 
     return {
-      status, key, value, newValue
+      status, key, value, newValue,
     };
   });
   return tree;

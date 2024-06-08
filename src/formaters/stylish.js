@@ -6,7 +6,7 @@ const assembleStrOfOBj = (array, depth) => {
   const bracketSpace = calculateSpacesCount(depth, 4, 4);
   return ['{',
     ...array,
-    `${' '.repeat(bracketSpace)}}`
+    `${' '.repeat(bracketSpace)}}`,
   ].join('\n');
 };
 
@@ -25,31 +25,28 @@ export default (tree) => {
   const iter = (node, depth) => {
     const result = node.map((el) => {
       const {
- status, key, value, newValue
-} = el;
+        status, key, value, newValue
+      } = el;
       const inlineSpaces = calculateSpacesCount(depth, 4, 2);
-      let sign;
-      let nestObj;
       switch (status) {
         case 'nested':
-          nestObj = iter(value, depth + 1);
-          return `${' '.repeat(inlineSpaces)}  ${key}: ${nestObj}`;
+          return `${' '.repeat(inlineSpaces)}  ${key}: ${iter(value, depth + 1)}`;
 
-        case 'updated': return `${' '.repeat(inlineSpaces)}- ${key}: ${stringtify(value, depth + 1)}\n${' '.repeat(inlineSpaces)}+ ${key}: ${stringtify(newValue, depth + 1)}`;
+        case 'updated':
+          return `${' '.repeat(inlineSpaces)}- ${key}: ${stringtify(value, depth + 1)}\n${' '.repeat(inlineSpaces)}+ ${key}: ${stringtify(newValue, depth + 1)}`;
+
         case 'unchanged':
-          sign = ' ';
-          break;
+          return `${' '.repeat(inlineSpaces)}  ${key}: ${stringtify(value, depth + 1)}`;
+
         case 'removed':
-          sign = '-';
-          break;
+          return `${' '.repeat(inlineSpaces)}- ${key}: ${stringtify(value, depth + 1)}`;
+
         case 'added':
-          sign = '+';
-          break;
+          return `${' '.repeat(inlineSpaces)}+ ${key}: ${stringtify(value, depth + 1)}`;
+
         default:
           throw new Error('invalid tree / invalid node type');
       }
-
-      return `${' '.repeat(inlineSpaces)}${sign} ${key}: ${stringtify(value, depth + 1)}`;
     });
 
     return assembleStrOfOBj(result, depth);

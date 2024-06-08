@@ -18,7 +18,6 @@ export default [
       'space-infix-ops': 'error',
       'quotes': [2, 'single'],
       'eol-last': 'error',
-      'object-curly-newline': ['error', 'always'],
     }
   },
   pluginJs.configs.recommended

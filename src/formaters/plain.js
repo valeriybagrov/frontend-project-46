@@ -7,23 +7,29 @@ const stringtify = (value) => {
 };
 
 const createDiscription = (status, path, value, newValue) => {
-  let changingDiscription = '';
+  switch (status) {
+    case 'updated':
+      return `Property '${path}' was ${status}. From ${stringtify(value)} to ${stringtify(newValue)}`;
 
-  if (status === 'updated') changingDiscription = `. From ${stringtify(value)} to ${stringtify(newValue)}`;
-  else if (status === 'added') changingDiscription = ` with value: ${stringtify(value)}`;
+    case 'added':
+      return `Property '${path}' was ${status} with value: ${stringtify(value)}`;
 
-  return `Property '${path}' was ${status}${changingDiscription}`;
+    case 'removed':
+      return `Property '${path}' was ${status}`;
+
+    default:
+      return [];
+  }
 };
 
 const plain = (tree, path) => {
   const result = tree.flatMap((node) => {
     const {
- status, key, value, newValue
-} = node;
+      status, key, value, newValue
+    } = node;
     const newPath = path ? `${path}.${key}` : key;
 
     if (status === 'nested') return plain(value, newPath);
-    if (status === 'unchanged') return [];
 
     return createDiscription(status, newPath, value, newValue);
   });

@@ -1,8 +1,6 @@
 /* eslint-env jest */
 
-import {
- fileURLToPath
-} from 'url';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import gendiff from '../src/index.js';
 

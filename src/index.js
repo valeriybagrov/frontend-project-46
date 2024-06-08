@@ -1,9 +1,5 @@
-import {
- readFileSync
-} from 'node:fs';
-import {
- resolve
-} from 'node:path';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import formater from './formaters/index.js';
 import parse from './parsers.js';
 import makeTree from './makeTree.js';

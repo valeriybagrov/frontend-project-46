@@ -1,45 +1,34 @@
 import _ from 'lodash';
 
 const checkKeyStatus = (key, keyCollection1, keyCollection2, value1, value2) => {
-  let status;
-
   if (keyCollection1.includes(key) && keyCollection2.includes(key)) {
-    if (_.isObject(value1) && _.isObject(value2)) status = 'nested';
-    else if (value1 === value2) status = 'unchanged';
-    else status = 'updated';
-  } else if (keyCollection1.includes(key) && !keyCollection2.includes(key)) status = 'removed';
-  else status = 'added';
+    if (_.isObject(value1) && _.isObject(value2)) return 'nested';
+    if (value1 === value2) return 'unchanged';
+    return 'updated';
+  }
+  if (keyCollection1.includes(key) && !keyCollection2.includes(key)) return 'removed';
 
-  return status;
+  return 'added';
 };
 
 const getNodeValues = (status, value1, value2) => {
-  let value;
-  let newValue;
-
   switch (status) {
-    case 'nested':
-      value = makeTree(value1, value2);
-      break;
-    case 'unchanged':
-      value = value1;
-      break;
-    case 'updated':
-      value = value1;
-      newValue = value2;
-      break;
-    case 'removed':
-      value = value1;
-      break;
-    case 'added':
-      value = value2;
-      break;
+    case 'nested': return { value: makeTree(value1, value2) };
+
+    case 'unchanged': return { value: value1 };
+
+    case 'removed': return { value: value1 };
+
+    case 'updated': return {
+      value: value1,
+      newValue: value2,
+    };
+
+    case 'added': return { value: value2};
+
     default:
-      break;
+      throw new Error('Unexpected node status');
   }
-  return {
- value, newValue
-};
 };
 
 const makeTree = (node1, node2) => {
@@ -53,12 +42,12 @@ const makeTree = (node1, node2) => {
     const status = checkKeyStatus(key, keys1, keys2, value1, value2);
 
     const {
- value, newValue
-} = getNodeValues(status, value1, value2);
+      value, newValue
+    } = getNodeValues(status, value1, value2);
 
     return {
- status, key, value, newValue
-};
+      status, key, value, newValue
+    };
   });
   return tree;
 };

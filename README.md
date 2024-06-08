@@ -11,3 +11,5 @@
 [![asciicast](https://asciinema.org/a/9M0XfBNlXI0VdHlHZxWumybQM.svg)](https://asciinema.org/a/9M0XfBNlXI0VdHlHZxWumybQM)
 ### With dom-three files
 [![asciicast](https://asciinema.org/a/EpgPr1soKVtfiMjrgP4PUkgf6.svg)](https://asciinema.org/a/EpgPr1soKVtfiMjrgP4PUkgf6)
+### Plain format
+[![asciicast](https://asciinema.org/a/3EdGZmOuN2rO19TErjpmjnqhL.svg)](https://asciinema.org/a/3EdGZmOuN2rO19TErjpmjnqhL)

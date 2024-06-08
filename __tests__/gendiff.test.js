@@ -9,32 +9,7 @@ const __dirname = path.dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-const result2d = `{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`;
-
-test("2d files JSON", () => {
-  const path1 = getFixturePath("file1.json");
-  const path2 = getFixturePath("file2.json");
-
-  const result = gendiff(path1, path2);
-  expect(result).toEqual(result2d);
-});
-
-test("2d files YAML", () => {
-  const path1 = getFixturePath("file1.yaml");
-  const path2 = getFixturePath("file2.yml");
-
-  const result = gendiff(path1, path2);
-  expect(result).toEqual(result2d);
-});
-
-const result3d =`{
+const resultStylish =`{
     common: {
       + follow: false
         setting1: Value 1
@@ -79,23 +54,7 @@ const result3d =`{
     }
 }`;
 
-test("3d files JSON", () => {
-  const path1 = getFixturePath("file3.json");
-  const path2 = getFixturePath("file4.json");
-
-  const result = gendiff(path1, path2);
-  expect(result).toEqual(result3d);
-});
-
-test("3d files YAML", () => {
-  const path1 = getFixturePath("file3.yaml");
-  const path2 = getFixturePath("file4.yml");
-
-  const result = gendiff(path1, path2);
-  expect(result).toEqual(result3d);
-});
-
-const toPlain = `Property 'common.follow' was added with value: false
+const resultPlain = `Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
 Property 'common.setting3' was updated. From true to null
 Property 'common.setting4' was added with value: 'blah blah'
@@ -107,10 +66,21 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
 
-test("plain", () => {
-  const path1 = getFixturePath("file3.yaml");
-  const path2 = getFixturePath("file4.yml");
 
-  const result = gendiff(path1, path2, 'plain');
-  expect(result).toEqual(toPlain);
+test('gendiff JSON', () => {
+  const filepath1 = getFixturePath(`file3.json`);
+  const filepath2 = getFixturePath(`file4.json`);
+
+  expect(gendiff(filepath1, filepath2)).toEqual(resultStylish);
+  expect(gendiff(filepath1, filepath2, 'stylish')).toEqual(resultStylish);
+  expect(gendiff(filepath1, filepath2, 'plain')).toEqual(resultPlain);
+});
+
+test('gendiff YAML', () => {
+  const filepath1 = getFixturePath(`file3.yaml`);
+  const filepath2 = getFixturePath(`file4.yml`);
+
+  expect(gendiff(filepath1, filepath2)).toEqual(resultStylish);
+  expect(gendiff(filepath1, filepath2, 'stylish')).toEqual(resultStylish);
+  expect(gendiff(filepath1, filepath2, 'plain')).toEqual(resultPlain);
 });

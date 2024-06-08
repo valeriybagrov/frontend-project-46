@@ -20,20 +20,20 @@ const makeTree = (node1, node2) => {
     const value1 = node1[key];
     const value2 = node2[key];
 
-    const getNodeValues = (status, value1, value2) => {
+    const getNodeValues = (status, v1, v2) => {
       switch (status) {
-        case 'nested': return { value: makeTree(value1, value2) };
+        case 'nested': return { value: makeTree(v1, v2) };
 
-        case 'unchanged': return { value: value1 };
+        case 'unchanged': return { value: v1 };
 
-        case 'removed': return { value: value1 };
+        case 'removed': return { value: v1 };
 
         case 'updated': return {
-          value: value1,
-          newValue: value2,
+          value: v1,
+          newValue: v2,
         };
 
-        case 'added': return { value: value2 };
+        case 'added': return { value: v2 };
 
         default:
           throw new Error('Unexpected node status');
